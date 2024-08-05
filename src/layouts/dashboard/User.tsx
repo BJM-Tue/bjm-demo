@@ -1,9 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
-import { Dropdown, MenuProps, message, Space, theme, Typography } from 'antd';
-
-const onClick: MenuProps['onClick'] = ({ key }) => {
-  message.info(`Click on item ${key}`);
-};
+import { Dropdown, MenuProps, Modal, Space, theme, Typography } from 'antd';
+import { PATH_AUTH } from '../../routes/path';
 
 const items: MenuProps['items'] = [
   {
@@ -14,8 +12,31 @@ const items: MenuProps['items'] = [
 ];
 
 const User = () => {
+  const navigate = useNavigate();
   const { token } = theme.useToken();
+  const [modal, contextHolder] = Modal.useModal();
 
+  const handleLogout = () => {
+    modal.confirm({
+      centered: true,
+      title: 'ログアウトしますか？',
+      content: 'ログアウトすると、再度ログインが必要です。',
+      okButtonProps: { danger: true },
+      okText: 'ログアウト',
+      onOk: () => {
+        navigate(PATH_AUTH.login);
+      },
+    });
+  };
+  const onClick: MenuProps['onClick'] = ({ key }) => {
+    switch (key) {
+      case 'logout':
+        handleLogout();
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <Space
       align="center"
@@ -37,6 +58,7 @@ const User = () => {
           <SettingOutlined />
         </Typography.Text>
       </Dropdown>
+      {contextHolder}
     </Space>
   );
 };

@@ -2,6 +2,7 @@ import { lazy, LazyExoticComponent, Suspense } from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
 import { Loading } from '../components';
 import DashboardLayout from '../layouts/dashboard';
+import AuthLayout from '../layouts/auth';
 import {
   CHAT_PATH,
   LOGIN_PATH,
@@ -34,6 +35,7 @@ const Router = () => {
     // Auth routes
     {
       path: ROOT_AUTH,
+      element: <AuthLayout />,
       children: [
         { path: '', element: <Navigate to={PATH_AUTH.login} replace /> },
         { path: LOGIN_PATH, element: <Login /> },

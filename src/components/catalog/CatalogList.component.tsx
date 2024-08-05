@@ -67,7 +67,6 @@ const CatalogListContainer = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   overflowY: 'auto',
-  height: 400,
 });
 
 const CatalogItem = styled(Space)({

@@ -2,17 +2,11 @@ import { Space, theme, Typography } from 'antd';
 import { Catalog, ChatInput } from '../components';
 import styled from 'styled-components';
 
-const CHAT = {
-  INPUT: {
-    HEIGHT: 100,
-  },
-};
-
 const Chat = () => {
   const { token } = theme.useToken();
 
   return (
-    <Space direction="vertical" size={0} style={{ position: 'relative' }}>
+    <ChatContainer>
       <Space
         direction="vertical"
         size={0}
@@ -28,18 +22,32 @@ const Chat = () => {
           どのようなご要件でしょうか？
         </Typography.Text>
       </Space>
-      <Catalog />
-      <InputContainer align="center" style={{ justifyContent: 'center' }}>
+      <ScrollContainer style={{ paddingBottom: token.paddingMD }}>
+        <Catalog />
+      </ScrollContainer>
+      <ChatInputContainer style={{ padding: token.paddingMD, boxShadow: token.boxShadow }}>
         <ChatInput />
-      </InputContainer>
-    </Space>
+      </ChatInputContainer>
+    </ChatContainer>
   );
 };
 
-const InputContainer = styled(Space)({
-  height: CHAT.INPUT.HEIGHT,
-  position: 'absolute',
-  bottom: 0,
+const ChatContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100vh',
+});
+
+const ScrollContainer = styled('div')({
+  flex: 1,
+  overflowY: 'auto',
+});
+
+const ChatInputContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 export default Chat;
